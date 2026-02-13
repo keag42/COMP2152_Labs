@@ -29,13 +29,15 @@ def fib(n):
         int: The nth Fibonacci number
     """
     # TODO: Base case 1 - If n equals 0, return 0
-        
-    # TODO: Base case 2 - If n equals 1, return 1
+    if n== 0:
+        return 0
 
+    # TODO: Base case 2 - If n equals 1, return 1
+    if n == 1:
+        return 1
 
     # TODO: Recursive case - Return fib(n-1) + fib(n-2)
-    pass  # Remove this line when you add your code
-
+    return fib(n-1) + fib(n-2)
 
 # Test cases for Fibonacci
 print("Fibonacci Sequence (F(0) to F(10)):")
@@ -78,17 +80,17 @@ def fizz_buzz(n):
 
     # TODO: Loop from 1 to n (inclusive)
     # Hint: Use range(1, n + 1)
+    result = []
 
-        # TODO: Check if divisible by BOTH 3 and 5 FIRST
-        # Hint: if i % 3 == 0 and i % 5 == 0
-
-        # TODO: Then check if divisible by 3 only
-
-        # TODO: Then check if divisible by 5 only
-
-        # TODO: Otherwise, append the number as a string
-        # Hint: result.append(str(i))
-
+    for i in range(1, n+1):
+        if i % 3 == 0 and i % 5 == 0:
+            result.append("FizzBuzz")
+        elif i % 3 == 0:
+            result.append("Fizz")
+        elif i % 5 == 0 :
+            result.append("Buzz")
+        else:
+            result.append(str(i))
     return result
 
 
