@@ -1,7 +1,7 @@
 # ============================================================
 #  WEEK 06 LAB: NETWORK DIAGNOSTIC LOGGER
 #  COMP2152
-#  [Your Name Here]
+#  Keagan Cameron
 # ============================================================
 #
 #  This program runs network commands (ping, nslookup, ifconfig),
@@ -182,21 +182,22 @@ def parse_arp_table(output):
 def write_to_log(filename, entry):
     """Append a log entry to a text file."""
     # Append mode — adds to the end, never overwrites
-    with open("myfile.txt", "a") as file:
-        file.write("new line here\n")
+    with open(filename, "a") as file:   #W overWrites good practice for opening file for the first time. if the file isnt there w will create the file
+        file.write(entry + "\n") #what does entry do
 
     # *** YOUR CODE HERE ***
     # Open the file in append mode ("a") using a with statement
     # Write the entry + "\n" to the file
-    pass
 
 
 def read_log(filename):
     """Read and return the entire contents of a log file."""
+
+    with open(filename, "r") as file: #with automatically closes file
+        return file.read()
     # *** YOUR CODE HERE ***
     # Open the file in read mode ("r") using a with statement
     # Return the result of file.read()
-    pass
 
 
 # This function is COMPLETE — it uses write_to_log() above
@@ -230,20 +231,25 @@ LOG_FILE = "diagnostics.csv"
 def log_to_csv(filename, command, target, result, status):
     """Append one row to the CSV log file with a timestamp."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(filename, "a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerows( [timestamp, command, target, result, status] )
     # *** YOUR CODE HERE ***
     # Open filename in append mode ("a") with newline=""
     # Create a csv.writer(file)
     # Write one row: [timestamp, command, target, result, status]
-    pass
+
 
 
 def read_csv_log(filename):
     """Read and display all rows from the CSV log file."""
     # *** YOUR CODE HERE ***
-    # Open filename in read mode ("r") with newline=""
-    # Create a csv.reader(file)
-    # Loop through rows and print: " | ".join(row)
-    pass
+    with open(filename, "r", newline="") as file:
+        reader = csv.reader(filename)
+        for row in reader:
+            print(" \ ".join(row))
+
+
 
 
 # This function is COMPLETE — it uses the CSV functions above
@@ -336,16 +342,27 @@ def safe_read_log(filename):
     """Read a log file with error handling for missing files."""
     # *** YOUR CODE HERE ***
     # try:
+    try:
+
     #     open the file in read mode
+        with open(filename, "r") as file:
+
     #     read the content
+            content = file.read()
     #     if content is empty: print "Log file is empty." and return ""
+            if content == "":
+                print("log file is empty.")
+                return ""
+            else:
+                return content
+
     #     else: return the content
-    # except FileNotFoundError:
-    #     print "No log file found. Run a diagnostic first."
-    #     return ""
-    # finally:
-    #     print "Log read attempt completed."
-    pass
+    except FileNotFoundError:
+          print("No log file found. Run a diagnostic first.")
+          return ""
+    finally:
+         print("Log read attempt completed.")
+
 
 
 def get_valid_input(prompt, valid_options):
@@ -513,5 +530,5 @@ def main():
 #  TEST YOUR WORK
 # ============================================================
 # After completing Tasks 1-3, uncomment the line below to run:
-# main()
+main()
 # ============================================================
