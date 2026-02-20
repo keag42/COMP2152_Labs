@@ -29,13 +29,15 @@ def fib(n):
         int: The nth Fibonacci number
     """
     # TODO: Base case 1 - If n equals 0, return 0
-        
-    # TODO: Base case 2 - If n equals 1, return 1
+    if n== 0:
+        return 0
 
+    # TODO: Base case 2 - If n equals 1, return 1
+    if n == 1:
+        return 1
 
     # TODO: Recursive case - Return fib(n-1) + fib(n-2)
-    pass  # Remove this line when you add your code
-
+    return fib(n-1) + fib(n-2)
 
 # Test cases for Fibonacci
 print("Fibonacci Sequence (F(0) to F(10)):")
@@ -78,17 +80,17 @@ def fizz_buzz(n):
 
     # TODO: Loop from 1 to n (inclusive)
     # Hint: Use range(1, n + 1)
+    result = []
 
-        # TODO: Check if divisible by BOTH 3 and 5 FIRST
-        # Hint: if i % 3 == 0 and i % 5 == 0
-
-        # TODO: Then check if divisible by 3 only
-
-        # TODO: Then check if divisible by 5 only
-
-        # TODO: Otherwise, append the number as a string
-        # Hint: result.append(str(i))
-
+    for i in range(1, n+1):
+        if i % 3 == 0 and i % 5 == 0:
+            result.append("FizzBuzz")
+        elif i % 3 == 0:
+            result.append("Fizz")
+        elif i % 5 == 0 :
+            result.append("Buzz")
+        else:
+            result.append(str(i))
     return result
 
 
@@ -137,8 +139,6 @@ def binary_search_iterative(nums, target):
     """
     # TODO: Initialize left pointer to 0
     left = 0
-
-    # TODO: Initialize right pointer to len(nums) - 1
     right = len(nums) - 1
 
     # TODO: While left <= right:
@@ -146,7 +146,14 @@ def binary_search_iterative(nums, target):
     #   - If nums[mid] == target, return mid
     #   - If target < nums[mid], search left half: right = mid - 1
     #   - If target > nums[mid], search right half: left = mid + 1
-
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        elif target < nums[mid]:
+           right = mid - 1
+        else:
+           left = mid + 1
 
     # TODO: Return -1 if target not found
     return -1
@@ -167,23 +174,18 @@ def binary_search_recursive(nums, target, left, right):
         int: Index of target, or -1 if not found
     """
     # TODO: Base case - If left > right, return -1 (target not found)
+    if left > right:
+        return -1
 
-
-    # TODO: Calculate mid = (left + right) // 2
-
-
-    # TODO: If nums[mid] == target, return mid
-
-
-    # TODO: If target < nums[mid], recurse on left half
-    # Hint: return binary_search_recursive(nums, target, left, mid - 1)
-
-
-    # TODO: If target > nums[mid], recurse on right half
-    # Hint: return binary_search_recursive(nums, target, mid + 1, right)
-
-    pass  # Remove this line when you add your code
-
+    mid = (left + right) // 2
+    
+    if nums[mid] == target:
+        return mid
+    elif target < nums[mid]:
+        return binary_search_recursive(nums, target, left, mid - 1)
+    else:
+        return binary_search_recursive(nums, target, mid + 1, right)
+ 
 
 # Wrapper function for recursive solution
 def search_recursive(nums, target):
